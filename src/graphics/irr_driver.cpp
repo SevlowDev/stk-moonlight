@@ -843,7 +843,7 @@ begin:
     if (!GUIEngine::isNoGraphics())
     {
         m_device->setWindowClass("SuperTuxKart");
-        m_device->setWindowCaption(L"SuperTuxKart");
+        m_device->setWindowCaption(L"SuperTuxKart Moonlight Client");
         m_device->getVideoDriver()
             ->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
         m_device->getVideoDriver()

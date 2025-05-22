@@ -483,12 +483,20 @@ void ServerLobby::handleChat(Event* event)
     std::string message_utf8 = StringUtils::wideToUtf8(message);
     std::string prefix = StringUtils::wideToUtf8(
         event->getPeer()->getPlayerProfiles()[0]->getName()) + ": ";
-    
     if (!StringUtils::startsWith(message_utf8, prefix))
     {
         NetworkString* chat = getNetworkString();
         chat->setSynchronous(true);
         core::stringw warn = "Don't try to impersonate others!";
+        chat->addUInt8(LE_CHAT).encodeString16(warn);
+        event->getPeer()->sendPacket(chat, true/*reliable*/);
+        delete chat;
+        return;
+    }
+    if(StringUtils::startsWith(message_utf8, prefix + "/")) {
+        NetworkString* chat = getNetworkString();
+        chat->setSynchronous(true);
+        core::stringw warn = "Commands are not working because michal ma downa";
         chat->addUInt8(LE_CHAT).encodeString16(warn);
         event->getPeer()->sendPacket(chat, true/*reliable*/);
         delete chat;
